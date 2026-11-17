@@ -6,13 +6,17 @@
 
 1. [01-schema.sql](01-schema.sql)：**会删除并重建** `shop_orders` 与 `shop_customers`，随后插入示例数据。仅在本地 `lab_db` 执行。
 2. [02-queries.sql](02-queries.sql)：查询已付款订单、按客户聚合金额，并查看索引计划。
+3. [03-crud-practice.sql](03-crud-practice.sql)：第一课独立练习 `CREATE TABLE`、`INSERT`、`SELECT`、`UPDATE` 和 `DELETE`，仅重建 `lesson01_students` 练习表。
 
 进入本项目 MySQL 容器后：
 
 ```sql
 SOURCE /lab/sql/01-basics/01-schema.sql;
 SOURCE /lab/sql/01-basics/02-queries.sql;
+SOURCE /lab/sql/01-basics/03-crud-practice.sql;
 ```
+
+第一课笔记见 [MySQL、数据库、表与 SQL 基础](../notes/01-mysql-sql-intro.md)。
 
 ## 需要思考的问题
 
