@@ -1,0 +1,23 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local database files and backup exports
+data/
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+*.sql.gz
+
+# IDE / system
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+__pycache__/
