@@ -30,7 +30,7 @@
 仓库根目录中，确认 Docker Desktop 已启动并执行：
 
 ```powershell
-Copy-Item .env.example .env   # 只需首次创建；存在时不要覆盖
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 notepad .env                  # 设置本机专用密码，不提交 .env
 docker compose up -d
 docker compose ps
