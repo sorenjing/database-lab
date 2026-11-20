@@ -12,6 +12,10 @@ Hands-on database learning with MySQL, PostgreSQL, and Redis, covering SQL, inde
 | [postgresql/](postgresql/) | PostgreSQL 数据类型、索引、查询计划与事务 | 计划中 |
 | [redis/](redis/) | 数据结构、过期、缓存和并发控制 | 计划中 |
 
+## 新手先读
+
+如果完全没有数据库基础，请先阅读 [第 00 课：数据库分类与从零搭建 MySQL 学习环境](mysql/notes/00-database-setup.md)，认识 MySQL Server、Docker、数据卷与 DBeaver 图形客户端。下面的命令是给已了解这些概念的人使用的快速入口。
+
 ## 快速开始 · MySQL
 
 **前置条件：** Docker Desktop 和 `docker compose` 可用。默认使用官方 `mysql:8.4` 镜像，映射到本机 **127.0.0.1:3307**，避免占用本地 3306。
@@ -19,7 +23,7 @@ Hands-on database learning with MySQL, PostgreSQL, and Redis, covering SQL, inde
 在仓库根目录执行（PowerShell）：
 
 ```powershell
-Copy-Item .env.example .env
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 notepad .env            # 先把两个示例密码替换为本地专用密码
 docker compose up -d
 docker compose ps
