@@ -14,7 +14,7 @@ Hands-on database learning with MySQL, PostgreSQL, and Redis, covering SQL, inde
 
 ## 新手先读
 
-如果完全没有数据库基础，请先阅读 [第 00 课：数据库分类与从零搭建 MySQL 学习环境](mysql/notes/00-database-setup.md)，认识 MySQL Server、Docker、数据卷与 DBeaver 图形客户端。下面的命令是给已了解这些概念的人使用的快速入口。
+如果完全没有数据库基础，请先阅读 [第 00 课：数据库分类与从零搭建 MySQL 学习环境](mysql/notes/00-database-setup.md)，认识 MySQL Server、Docker、数据卷与 Navicat Premium Lite 图形客户端。下面的命令是给已了解这些概念的人使用的快速入口。
 
 ## 快速开始 · MySQL
 
