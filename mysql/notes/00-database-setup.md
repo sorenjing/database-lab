@@ -1,7 +1,7 @@
 # 00 · 数据库分类与从零搭建 MySQL 学习环境
 
 > 状态：**教程已整理；本地环境尚未验收**。本页不代表用户已经执行命令。  
-> 适用：Windows 11 + Docker Desktop + PowerShell + DBeaver Community。  
+> 适用：Windows 11 + Docker Desktop + PowerShell + **Navicat Premium Lite 18（首选）**。  
 > 本仓库使用 `mysql:8.4` 和本机 `127.0.0.1:3307`，以仓库当前的 `compose.yaml`、`.env.example` 为准。
 
 ## 1. 先认清数据库系统
@@ -28,9 +28,9 @@ Windows 11
   ├─ Docker Desktop
   │    └─ mysql:8.4 镜像创建的 MySQL 容器（运行 MySQL Server）
   │          └─ /var/lib/mysql ← Docker 命名数据卷 mysql_data（持久化）
-  ├─ DBeaver Community（SQL 图形客户端，直接装在 Windows）
+  ├─ Navicat Premium Lite 18（SQL 图形客户端，直接装在 Windows）
   └─ PowerShell（控制 docker compose）
-DBeaver → 127.0.0.1:3307 → 容器内端口 3306 → MySQL Server
+Navicat → 127.0.0.1:3307 → 容器内端口 3306 → MySQL Server
 ```
 
 - **镜像（Image）**：创建容器的模板；仓库声明 `mysql:8.4`。
@@ -41,21 +41,22 @@ DBeaver → 127.0.0.1:3307 → 容器内端口 3306 → MySQL Server
 
 注意：数据卷不是 SQL 脚本文件夹。`./mysql:/lab/sql:ro` 是将学习 SQL 文件**只读**映射到容器；而 `mysql_data:/var/lib/mysql` 才是数据库持久化存储目录。Docker 中的数据并不因为没有 Windows MySQL 安装包就“消失”。
 
-## 3. 为什么需要 DBeaver？
+## 3. 为什么选择 Navicat Premium Lite？
 
 区分三类工具：
 
 1. MySQL Server：实际运行数据库、保存和处理数据。
 2. Docker Desktop：启动、停止、查看 MySQL 容器。
-3. DBeaver Community：数据库**图形化客户端**，浏览数据库/表、查看数据、执行 SQL。
+3. Navicat Premium Lite 18：数据库**图形化客户端**，浏览数据库/表、查看数据、执行 SQL。
 
-DBeaver 不是数据库服务；只安装 DBeaver 而未启动 MySQL Server，不能直接连接到本地 MySQL。推荐 DBeaver Community 因为也能用于 PostgreSQL。
+Navicat 是独立安装于 Windows 的数据库**客户端**，不负责运行 MySQL Server。选择 **Navicat Premium Lite 18**：官方免费版本，支持 MySQL、PostgreSQL、Redis 等数据库，可执行基础 SQL 查询和数据表管理。它是功能受限的 Lite 版本，不应默认具有付费版的所有高级功能。官方说明可用于非商业和商业用途，组织内最多 5 个免费用户账号；个人学习适用。
 
-- 官方下载：https://dbeaver.io/download/
-- 官方安装：https://dbeaver.com/docs/dbeaver/Installation/
-- 官方连接指南：https://dbeaver.com/docs/dbeaver/Create-Connection/
+- 免费版官方下载：https://www.navicat.com/en/download/navicat-premium-lite.html
+- Lite 产品说明：https://www.navicat.com/en/products/navicat-premium-lite.html
+- 版本功能矩阵：https://www.navicat.com/en/products/navicat-premium-feature-matrix
+- Windows 18 版连接手册：https://www.navicat.com/manual/online_manual/en/navicat_18/win_manual/connection.html
 
-Windows 建议使用官方安装包，或在已有可信软件包管理习惯下安装 Community 版。首次创建 MySQL 连接可能提示下载 JDBC 驱动，按软件界面确认即可。
+在官网下载 Windows 安装程序，按安装向导完成即可。若安装向导允许自定义路径，可选择 D 盘。无需同时安装 DBeaver、Workbench 或 Navicat 付费版。
 
 ## 4. 从零启动仓库数据库（PowerShell）
 
@@ -124,12 +125,13 @@ docker compose logs --tail=50 mysql
 
 不要凭 `docker compose ps` 中容器已启动就认为数据库完全准备就绪，还应测试连接。
 
-## 5. 用 DBeaver 连接
+## 5. 用 Navicat Premium Lite 18 连接
 
-在 Windows 安装并打开 **DBeaver Community** → 新建数据库连接 → 选择 **MySQL** → 填入：
+在 Windows 安装并打开 **Navicat Premium Lite 18** → 选择 **连接 / Connection → MySQL**（具体布局以当前界面为准）→ 填入：
 
 | 字段 | 值 |
 | --- | --- |
+| Connection Name / 连接名 | `MySQL Local Lab`（自定义名称） |
 | Host / Server | `127.0.0.1` |
 | Port | `3307` |
 | Database | `lab_db` |
@@ -138,7 +140,7 @@ docker compose logs --tail=50 mysql
 
 不要用 `3306` 连接 Windows 侧这个 Compose 项目：3306 是容器内端口，3307 才是映射到 Windows 的端口。
 
-点击 **Test Connection**。首次可能需要下载 MySQL JDBC 驱动，成功后完成连接。在 DBeaver 的 SQL 编辑器执行：
+点击 **Test Connection / 测试连接**，成功后保存。双击连接找到 `lab_db`，在 **查询 / Query / 新建查询** 里执行：
 
 ```sql
 SELECT VERSION();
@@ -150,7 +152,7 @@ SHOW TABLES;
 
 ### 可选：命令行直接登录
 
-DBeaver 若尚未安装，可以先在仓库根目录的 PowerShell 运行：
+Navicat 若尚未安装，可以先在仓库根目录的 PowerShell 运行：
 
 ```powershell
 docker compose exec mysql mysql -u lab_user -p lab_db
@@ -160,7 +162,7 @@ docker compose exec mysql mysql -u lab_user -p lab_db
 
 ## 6. 第一张表（成功连接以后再操作）
 
-练习库 `lab_db` 是首次初始化时**自动创建**的，不用再执行一次 `CREATE DATABASE lab_db`。接下来在 DBeaver SQL 编辑器中按顺序运行：
+练习库 `lab_db` 是首次初始化时**自动创建**的，不用再执行一次 `CREATE DATABASE lab_db`。接下来在 Navicat SQL 编辑器中按顺序运行：
 
 ```sql
 CREATE TABLE first_people (
@@ -201,7 +203,7 @@ docker compose down      # 移除本项目容器与网络，默认保留命名�
 - [ ] 能解释镜像、容器、数据卷和端口映射
 - [ ] Docker Engine 可用（运行 `docker version`）
 - [ ] 在仓库根目录运行 `docker compose up -d`
-- [ ] DBeaver 测试连接成功，或命令行登录成功
+- [ ] Navicat Premium Lite 测试连接成功，或命令行登录成功
 - [ ] 运行 `SELECT VERSION();`、`SELECT DATABASE();`
 - [ ] 用图形界面创建并查看 `first_people` 表
 
@@ -212,4 +214,5 @@ docker compose down      # 移除本项目容器与网络，默认保留命名�
 - Docker：容器化数据库 https://docs.docker.com/guides/databases/
 - Docker：持久化数据卷 https://docs.docker.com/get-started/docker-concepts/running-containers/persisting-container-data/
 - MySQL 8.4：Docker 部署 https://dev.mysql.com/doc/refman/8.4/en/linux-installation-docker.html
-- DBeaver：连接 MySQL https://dbeaver.com/docs/dbeaver/Database-driver-MySQL/
+- Navicat Premium Lite 官方下载 https://www.navicat.com/en/download/navicat-premium-lite.html
+- Navicat Windows 连接说明 https://www.navicat.com/manual/online_manual/en/navicat_18/win_manual/connection.html
