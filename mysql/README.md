@@ -4,7 +4,7 @@
 
 ## 零基础学习从这里开始
 
-1. [第 00 课：数据库分类、Docker 与 DBeaver 从零搭建](notes/00-database-setup.md)（先确认数据库服务能启动、图形客户端能连接）。
+1. [第 00 课：数据库分类、Docker 与 Navicat 从零搭建](notes/00-database-setup.md)（先确认数据库服务能启动、图形客户端能连接）。
 2. [第 01 课：MySQL、表与 SQL 入门](notes/01-mysql-sql-intro.md)（环境验收后再动手）。
 
 ## 专题
